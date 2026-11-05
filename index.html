@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Farma Tech Store — technology, innovation and quality. Shop electronics and accessories." />
+  <title>Farma Tech Store | Technology & Electronics</title>
+  <link rel="icon" href="assets/ft-logo.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="announcement">🚀 Welcome to Farma Tech Store — Technology, Innovation & Quality</div>
+  <header class="header">
+    <a class="brand" href="#home" aria-label="Farma Tech Store home">
+      <img src="assets/ft-logo.svg" alt="FT logo" />
+      <span>FARMA <b>TECH</b><small>STORE</small></span>
+    </a>
+    <nav class="nav" id="mainNav">
+      <a href="#home" class="active">Home</a>
+      <a href="#products">Products</a>
+      <a href="#categories">Categories</a>
+      <a href="#about">About</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" id="searchToggle" aria-label="Search products">⌕</button>
+      <button class="cart-button" id="openCart">🛒 <span>Cart</span><b id="cartCount">0</b></button>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <span class="eyebrow"><span class="dot"></span> YOUR DIGITAL WORLD, UPGRADED</span>
+        <h1>Technology that<br><span>moves you forward.</span></h1>
+        <p>Discover reliable tech, smart accessories, and everyday essentials — all in one place.</p>
+        <div class="hero-actions">
+          <a href="#products" class="btn btn-primary">Explore Products <span>→</span></a>
+          <a href="#categories" class="btn btn-outline">Browse Categories</a>
+        </div>
+        <div class="hero-trust">
+          <div><strong>✦</strong><span>Quality products</span></div>
+          <div><strong>↗</strong><span>Smart prices</span></div>
+          <div><strong>✓</strong><span>Friendly support</span></div>
+        </div>
+      </div>
+      <div class="hero-art">
+        <div class="glow"></div>
+        <div class="hero-orbit orbit-one"></div><div class="hero-orbit orbit-two"></div>
+        <div class="hero-product laptop-art">
+          <div class="laptop-screen"><div class="screen-glow">FT<span>+</span></div></div>
+          <div class="laptop-base"></div>
+        </div>
+        <div class="floating-chip chip-top">⚡ Fast & reliable</div>
+        <div class="floating-chip chip-bottom"><span class="chip-icon">✦</span><div><b>Tech essentials</b><small>Made for your lifestyle</small></div></div>
+      </div>
+    </section>
+
+    <section class="benefits">
+      <div><span class="benefit-icon">🚚</span><div><b>Convenient ordering</b><small>Order directly on WhatsApp</small></div></div>
+      <div><span class="benefit-icon">🛡️</span><div><b>Quality first</b><small>Carefully selected products</small></div></div>
+      <div><span class="benefit-icon">💬</span><div><b>Customer support</b><small>We’re here to help you</small></div></div>
+      <div><span class="benefit-icon">💳</span><div><b>Clear pricing</b><small>Prices shown in USD</small></div></div>
+    </section>
+
+    <section class="section categories-section" id="categories">
+      <div class="section-heading">
+        <div><span class="eyebrow">SHOP BY CATEGORY</span><h2>Find your <span>next favorite.</span></h2></div>
+        <a href="#products" class="text-link">View all products →</a>
+      </div>
+      <div class="category-grid">
+        <button class="category-card" data-category="Laptops"><span class="category-emoji">💻</span><span><b>Laptops</b><small>Work & creativity</small></span><span class="category-arrow">↗</span></button>
+        <button class="category-card" data-category="Phones"><span class="category-emoji">📱</span><span><b>Smartphones</b><small>Stay connected</small></span><span class="category-arrow">↗</span></button>
+        <button class="category-card" data-category="Accessories"><span class="category-emoji">🎧</span><span><b>Accessories</b><small>Little upgrades</small></span><span class="category-arrow">↗</span></button>
+        <button class="category-card" data-category="Networking"><span class="category-emoji">📡</span><span><b>Networking</b><small>Connect smarter</small></span><span class="category-arrow">↗</span></button>
+      </div>
+    </section>
+
+    <section class="section products-section" id="products">
+      <div class="section-heading products-heading">
+        <div><span class="eyebrow">OUR COLLECTION</span><h2>Popular <span>products.</span></h2><p class="section-subtitle">Explore our featured tech picks.</p></div>
+        <div class="product-controls">
+          <label class="search-box" id="searchBox"><span>⌕</span><input id="searchInput" type="search" placeholder="Search products..." /></label>
+          <select id="categoryFilter" aria-label="Filter by category"><option value="All">All categories</option><option>Laptops</option><option>Phones</option><option>Accessories</option><option>Networking</option></select>
+          <select id="sortFilter" aria-label="Sort products"><option value="featured">Featured</option><option value="low">Price: low to high</option><option value="high">Price: high to low</option><option value="name">Name: A–Z</option></select>
+        </div>
+      </div>
+      <div class="product-grid" id="productGrid"></div>
+    </section>
+
+    <section class="recommend-section">
+      <div class="recommend-copy"><span class="eyebrow">A SMARTER SHOPPING EXPERIENCE</span><h2>Not sure what<br>you need?</h2><p>Our store assistant can help you find the right device for your budget and needs.</p><button class="btn btn-primary" id="askAssistant">Ask Farma Assistant <span>↗</span></button></div>
+      <div class="recommend-visual"><div class="rec-circle">FT<span>✦</span></div><div class="rec-label">Your tech shopping partner</div></div>
+    </section>
+
+    <section class="section about-section" id="about">
+      <div class="about-mark"><img src="assets/ft-logo.svg" alt="Farma Tech logo"></div>
+      <div><span class="eyebrow">ABOUT FARMA TECH</span><h2>Tech made <span>simple.</span></h2><p>Farma Tech Store brings useful technology and accessories together with a clear, friendly shopping experience. Browse, compare, and place your order with ease.</p></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <a class="brand footer-brand" href="#home"><img src="assets/ft-logo.svg" alt=""><span>FARMA <b>TECH</b><small>STORE</small></span></a>
+    <p>Technology • Innovation • Quality</p>
+    <div class="footer-links"><a href="#products">Products</a><a href="#about">About</a><a href="#" id="footerChat">Chat with us</a></div>
+    <small class="copyright">© <span id="year"></span> Farma Tech Store. All rights reserved.</small>
+  </footer>
+
+  <!-- Product details modal -->
+  <div class="modal-backdrop" id="productModal" aria-hidden="true">
+    <div class="modal product-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" data-close="productModal" aria-label="Close">×</button>
+      <div id="productModalContent"></div>
+    </div>
+  </div>
+
+  <!-- Shopping cart drawer -->
+  <div class="drawer-backdrop" id="cartBackdrop">
+    <aside class="cart-drawer" aria-label="Shopping cart">
+      <div class="drawer-header"><div><span class="eyebrow">YOUR SELECTION</span><h2>Shopping cart <span id="drawerCount">(0)</span></h2></div><button class="modal-close" id="closeCart" aria-label="Close cart">×</button></div>
+      <div class="cart-items" id="cartItems"></div>
+      <div class="cart-empty" id="cartEmpty"><div>🛒</div><h3>Your cart is empty</h3><p>Looks like you haven’t added anything yet.</p><button class="btn btn-primary" id="continueShopping">Explore products</button></div>
+      <div class="cart-summary" id="cartSummary"><div><span>Subtotal</span><b id="cartSubtotal">$0.00</b></div><small>Delivery details will be confirmed on WhatsApp.</small><button class="btn btn-primary checkout-btn" id="checkoutBtn">Checkout via WhatsApp <span>↗</span></button></div>
+    </aside>
+  </div>
+
+  <!-- Checkout modal -->
+  <div class="modal-backdrop" id="checkoutModal" aria-hidden="true">
+    <div class="modal checkout-modal" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
+      <button class="modal-close" data-close="checkoutModal" aria-label="Close">×</button>
+      <span class="eyebrow">ALMOST THERE</span><h2 id="checkoutTitle">Complete your <span>order.</span></h2><p class="section-subtitle">Enter your details. Your order will open in WhatsApp for confirmation.</p>
+      <form id="checkoutForm">
+        <label>Full name<input name="name" required placeholder="Your full name" autocomplete="name"></label>
+        <label>Phone number<input name="phone" required placeholder="+252..." autocomplete="tel"></label>
+        <label>Delivery location<textarea name="address" required rows="2" placeholder="City / area / landmark"></textarea></label>
+        <label>Additional note (optional)<textarea name="note" rows="2" placeholder="Any details for your order?"></textarea></label>
+        <div class="checkout-total"><span>Order total</span><strong id="checkoutTotal">$0.00</strong></div>
+        <button class="btn btn-primary checkout-btn" type="submit">Send order on WhatsApp <span>↗</span></button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Chatbot -->
+  <button class="chat-launcher" id="chatLauncher" aria-label="Open Farma Assistant"><span>✦</span><i></i></button>
+  <section class="chat-widget" id="chatWidget" aria-label="Farma Tech Assistant">
+    <div class="chat-header"><div class="bot-avatar">FT</div><div><b>Farma Assistant</b><small><span class="online-dot"></span> Online • Here to help</small></div><button id="closeChat" aria-label="Close chat">×</button></div>
+    <div class="chat-messages" id="chatMessages"><div class="message bot-message">Hey there! 👋 Welcome to Farma Tech Store. I can help you find products, check prices, or recommend tech based on your needs. What are you looking for?</div><div class="quick-prompts"><button data-prompt="Recommend a laptop">💻 Laptop</button><button data-prompt="Show me accessories">🎧 Accessories</button><button data-prompt="How do I order?">🛒 How to order</button></div></div>
+    <form class="chat-input" id="chatForm"><input id="chatInput" placeholder="Ask me anything..." autocomplete="off" aria-label="Message assistant"><button type="submit" aria-label="Send message">➤</button></form>
+  </section>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#38bdf8"/><stop offset="1" stop-color="#0ea5e9"/></linearGradient></defs>
+<rect x="3" y="3" width="94" height="94" rx="23" fill="#102b45" stroke="#2d6585" stroke-width="2"/>
+<path d="M18 24h64v52H18z" fill="#0b1c2e" opacity=".55"/>
+<text x="50" y="65" text-anchor="middle" font-family="Arial,sans-serif" font-size="43" font-weight="900" letter-spacing="-4" fill="url(#g)">FT</text>
+<circle cx="79" cy="22" r="5" fill="#67d5ff"/>
+</svg>
