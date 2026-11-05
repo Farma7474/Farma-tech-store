@@ -16,6 +16,7 @@ const products = [
 
 let cart = JSON.parse(localStorage.getItem("farmaCart") || "[]");
 let activeProduct = null;
+let checkoutItems = null;
 const $ = (s,root=document)=>root.querySelector(s);
 const $$ = (s,root=document)=>[...root.querySelectorAll(s)];
 const money = n => "$" + Number(n).toFixed(2);
@@ -75,18 +76,38 @@ function openProduct(id){
   const p=productById(id);if(!p)return;activeProduct=p;
   $("#productModalContent").innerHTML=`<div class="detail-layout"><div class="detail-image"><img src="${p.image}" alt="${escapeHtml(p.name)}" onerror="this.style.opacity=0"></div><div class="detail-copy"><span class="product-category">${escapeHtml(p.category)} • ${escapeHtml(p.tag)}</span><h2 id="modalTitle">${escapeHtml(p.name)}</h2><div class="price">${money(p.price)}</div><p>${escapeHtml(p.description)}</p><div class="detail-actions"><button class="btn btn-primary" id="modalAdd">Add to cart <span>＋</span></button><button class="btn btn-outline" id="modalBuy">Order now ↗</button></div></div>`;
   $("#productModal").classList.add("show");$("#productModal").setAttribute("aria-hidden","false");
-  $("#modalAdd").onclick=()=>{addToCart(p.id);};$("#modalBuy").onclick=()=>{addToCart(p.id);$("#productModal").classList.remove("show");openCart();};
+  $("#modalAdd").onclick=()=>{addToCart(p.id);};$("#modalBuy").onclick=()=>openDirectCheckout(p.id);
 }
 function openCheckout(){
   if(!cart.length){toast("Your cart is empty.");return;}
   closeCart();$("#checkoutModal").classList.add("show");$("#checkoutModal").setAttribute("aria-hidden","false");
 }
+function openDirectCheckout(id){
+  const p=productById(id);if(!p)return;
+  checkoutItems=[{id:p.id,qty:1}];
+  $("#checkoutTotal").textContent=money(p.price);
+  $("#productModal").classList.remove("show");
+  $("#checkoutModal").classList.add("show");
+  $("#checkoutModal").setAttribute("aria-hidden","false");
+}
+
 function closeModal(id){const el=$("#"+id);if(el){el.classList.remove("show");el.setAttribute("aria-hidden","true");}document.body.style.overflow="";}
 function sendWhatsAppOrder(data){
   if(WHATSAPP_NUMBER.includes("X")){toast("Store WhatsApp number is not configured yet.");return;}
-  const lines=cart.map(item=>{const p=productById(item.id);return `• ${p.name} x${item.qty} — ${money(p.price*item.qty)}`;});
-  const total=cart.reduce((sum,item)=>sum+productById(item.id).price*item.qty,0);
-  const msg=`🛍️ *NEW ORDER — FARMA TECH STORE*\\n\\n👤 Name: ${data.name}\\n📞 Phone: ${data.phone}\\n📍 Delivery: ${data.address}\\n\\n📦 *Items:*\\n${lines.join("\\n")}\\n\\n💵 *Total: ${money(total)}*\\n${data.note?`📝 Note: ${data.note}\\n`:""}\\nPlease confirm availability and delivery. Thank you!`;
+  const items=checkoutItems || cart;
+  const lines=items.map(item=>{const p=productById(item.id);return `• ${p.name} x${item.qty} — ${money(p.price*item.qty)}`;});
+  const total=items.reduce((sum,item)=>sum+productById(item.id).price*item.qty,0);
+  const msg=`🛍️ *NEW ORDER — FARMA TECH STORE*
+👤 Name: ${data.name}
+📞 Phone: ${data.phone}
+📍 Delivery: ${data.address}
+
+📦 *Items:*
+${lines.join("\n")}
+
+💵 *Total: ${money(total)}*${data.note?`\n📝 Note: ${data.note}`:""}
+
+Please confirm availability and delivery. Thank you!`;
   window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`,"_blank");
 }
 function openChat(){ $("#chatWidget").classList.add("show");$("#chatLauncher").style.display="none";$("#chatInput").focus();}
@@ -125,7 +146,7 @@ function assistantReply(raw){
 
 // Events
 $("#productGrid").addEventListener("click",e=>{
-  const add=e.target.closest("[data-add]");if(add){addToCart(add.dataset.add);return;}
+  const add=e.target.closest("[data-add]");if(add){openDirectCheckout(add.dataset.add);return;}
   const wish=e.target.closest("[data-wish]");if(wish){wish.classList.toggle("liked");wish.textContent=wish.classList.contains("liked")?"♥":"♡";toast(wish.classList.contains("liked")?"Added to wishlist":"Removed from wishlist");return;}
   const detail=e.target.closest("[data-detail]");if(detail)openProduct(detail.dataset.detail);
 });
@@ -141,7 +162,7 @@ $("#cartItems").addEventListener("click",e=>{
   if(qty){const item=cart.find(i=>i.id===Number(qty.dataset.qty));if(item){item.qty+=Number(qty.dataset.change);if(item.qty<=0)cart=cart.filter(i=>i.id!==item.id);saveCart();}}
 });
 $("#continueShopping").onclick=closeCart;$("#checkoutBtn").onclick=openCheckout;
-$("#checkoutForm").addEventListener("submit",e=>{e.preventDefault();const data=Object.fromEntries(new FormData(e.target).entries());sendWhatsAppOrder(data);closeModal("checkoutModal");});
+$("#checkoutForm").addEventListener("submit",e=>{e.preventDefault();const data=Object.fromEntries(new FormData(e.target).entries());sendWhatsAppOrder(data);checkoutItems=null;closeModal("checkoutModal");});
 $$("[data-close]").forEach(btn=>btn.addEventListener("click",()=>closeModal(btn.dataset.close)));
 $$(".modal-backdrop").forEach(el=>el.addEventListener("click",e=>{if(e.target===el)closeModal(el.id);}));
 $("#searchToggle").onclick=()=>{$("#searchBox").scrollIntoView({behavior:"smooth",block:"center"});$("#searchInput").focus();};
